@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "ed315020144d5e337456",
+  "position": {
+    "x": 140.23543335376291,
+    "y": 358.37944079294965,
+    "z": 13001,
+    "height": 659.62592725658851,
+    "width": 1654.2587230804997,
+    "tabOrder": 13001
+  },
+  "visualGroup": {
+    "displayName": "Revenue",
+    "groupMode": "ScaleMode"
+  }
+}

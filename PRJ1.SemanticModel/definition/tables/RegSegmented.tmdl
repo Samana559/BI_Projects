@@ -1,0 +1,232 @@
+table RegSegmented
+	lineageTag: 81b0d386-daa6-4052-bdf7-0afbf90143bf
+
+	measure 'Total Revenue' = SUM(RegSegmented[Revenue])
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 2b481da9-5a8d-43c4-9bf3-68a28369df55
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Total Customer' = DISTINCTCOUNT(RegSegmented[Customer_ID])
+		formatString: 0
+		lineageTag: 726d8b93-1e44-4b46-a25d-d534e9286c63
+
+	measure 'Churned %' =
+			
+			DIVIDE(
+			    CALCULATE(DISTINCTCOUNT(RegSegmented[Customer_ID]), RegSegmented[IsChurned] = TRUE()),
+			    DISTINCTCOUNT(RegSegmented[Customer_ID])
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 85e56784-418d-45e8-975e-848c52d3bdd1
+
+	measure 'Avg Customer Value' = Divide([Total Revenue] , [Total Customer])
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 34a46759-acf2-4d58-9e57-d197907b5624
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Customer Retention %' =
+			
+			DIVIDE(
+			    CALCULATE(DISTINCTCOUNT(RegSegmented[Customer_ID]), RegSegmented[IsChurned] = FALSE()),
+			    DISTINCTCOUNT(RegSegmented[Customer_ID])
+			)
+		lineageTag: 5494cf82-bbb5-4c4c-b766-67818456d4be
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Invoice
+		dataType: int64
+		formatString: 0
+		lineageTag: 63c49d2a-b925-492a-b1e8-d6b169f5fc52
+		summarizeBy: sum
+		sourceColumn: Invoice
+
+		annotation SummarizationSetBy = Automatic
+
+	column StockCode
+		dataType: string
+		lineageTag: 36316d21-121d-48ac-9dff-2b3d60fc9e1b
+		summarizeBy: none
+		sourceColumn: StockCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column Description
+		dataType: string
+		lineageTag: d0ee12a8-bcbf-4003-b63d-f4a5420b1868
+		summarizeBy: none
+		sourceColumn: Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 84766cf0-4b64-4cc5-b108-4a3314021038
+		summarizeBy: sum
+		sourceColumn: Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column InvoiceDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 48bfd7bc-9c44-404f-9a43-fc40620df64a
+		summarizeBy: none
+		sourceColumn: InvoiceDate
+
+		variation Variation
+			isDefault
+			relationship: ce5a3367-47d8-44eb-a1e1-a24d580beb89
+			defaultHierarchy: LocalDateTable_7755681d-07af-4c48-a08e-2b8a40cd68cb.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Price
+		dataType: double
+		lineageTag: e4e87d15-4944-4da2-b3af-877da9e9139a
+		summarizeBy: sum
+		sourceColumn: Price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Customer_ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 198adf61-fca3-4929-9f7c-9938028c6d12
+		summarizeBy: count
+		sourceColumn: Customer_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		lineageTag: f8e5aaee-b943-46c4-ade0-8d7948e0eb2a
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column SourceSheet
+		dataType: string
+		lineageTag: dd461709-a04d-4e97-b990-ff788e251b0b
+		summarizeBy: none
+		sourceColumn: SourceSheet
+
+		annotation SummarizationSetBy = Automatic
+
+	column InvoiceMonth
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 3c85ff07-92ce-4303-95db-40f6329b4ba2
+		summarizeBy: none
+		sourceColumn: InvoiceMonth
+
+		variation Variation
+			isDefault
+			relationship: 32e0ccda-408a-4599-8439-ca4bd19ed798
+			defaultHierarchy: LocalDateTable_362a7e24-38b6-4ec4-a29a-2330332b7ddd.'Date Hierarchy'
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column Revenue
+		dataType: double
+		lineageTag: 5034e643-c8f9-47b0-aad6-4f7c32a7bffb
+		summarizeBy: sum
+		sourceColumn: Revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Recency
+		dataType: int64
+		formatString: 0
+		lineageTag: c19d7139-552c-4179-9acc-ebcd60e7f422
+		summarizeBy: sum
+		sourceColumn: Recency
+
+		annotation SummarizationSetBy = Automatic
+
+	column Frequency
+		dataType: int64
+		formatString: 0
+		lineageTag: 839c50cb-d5ac-4c6e-8079-9332e55b69a2
+		summarizeBy: sum
+		sourceColumn: Frequency
+
+		annotation SummarizationSetBy = Automatic
+
+	column Monetary
+		dataType: double
+		lineageTag: 5852b0a6-28d2-4627-a61a-e12540302d6b
+		summarizeBy: sum
+		sourceColumn: Monetary
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column R_Score
+		dataType: int64
+		formatString: 0
+		lineageTag: 1108cef1-751b-4093-b6c5-d72eaa4c7c1c
+		summarizeBy: sum
+		sourceColumn: R_Score
+
+		annotation SummarizationSetBy = Automatic
+
+	column F_Score
+		dataType: int64
+		formatString: 0
+		lineageTag: a8d2b9a8-0f7c-4ba7-825f-b639de2305ac
+		summarizeBy: sum
+		sourceColumn: F_Score
+
+		annotation SummarizationSetBy = Automatic
+
+	column M_Score
+		dataType: int64
+		formatString: 0
+		lineageTag: a7021508-6a9a-4120-9e13-4389e198cc67
+		summarizeBy: sum
+		sourceColumn: M_Score
+
+		annotation SummarizationSetBy = Automatic
+
+	column Segment
+		dataType: string
+		lineageTag: e11b21db-bdbb-46af-865e-7f9cff84f7f5
+		summarizeBy: none
+		sourceColumn: Segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsChurned
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: e09a4d6e-5330-4971-9abd-0f537e3c00a2
+		summarizeBy: none
+		sourceColumn: IsChurned
+
+		annotation SummarizationSetBy = Automatic
+
+	partition RegSegmented = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\saman\OneDrive\Desktop\BI_PRO\RegSegmented.xlsx"), null, true),
+				    RegSegmented_Sheet = Source{[Item="RegSegmented",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(RegSegmented_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Invoice", Int64.Type}, {"StockCode", type any}, {"Description", type text}, {"Quantity", Int64.Type}, {"InvoiceDate", type datetime}, {"Price", type number}, {"Customer_ID", Int64.Type}, {"Country", type text}, {"SourceSheet", type text}, {"InvoiceMonth", type date}, {"Revenue", type number}, {"Recency", Int64.Type}, {"Frequency", Int64.Type}, {"Monetary", type number}, {"R_Score", Int64.Type}, {"F_Score", Int64.Type}, {"M_Score", Int64.Type}, {"Segment", type text}, {"IsChurned", type logical}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

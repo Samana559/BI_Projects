@@ -1,0 +1,22 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-IN
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["RegSegmented"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table RegSegmented
+ref table DateTableTemplate_7a7b6cc7-73e7-47ff-9ebd-ef81c13b0218
+ref table LocalDateTable_7755681d-07af-4c48-a08e-2b8a40cd68cb
+ref table LocalDateTable_362a7e24-38b6-4ec4-a29a-2330332b7ddd
+
+ref cultureInfo en-US
+
